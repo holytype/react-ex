@@ -1,0 +1,9 @@
+.list-item {
+    border: black 1px solid;
+    background: darkgray;
+    margin: 5px;
+}
+
+ul{
+    list-style: none;
+}
