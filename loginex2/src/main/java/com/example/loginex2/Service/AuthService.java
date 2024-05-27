@@ -1,5 +1,7 @@
 package com.example.loginex2.Service;
 
+import com.example.loginex2.Dto.LoginDto;
+import com.example.loginex2.Dto.LoginResponseDto;
 import com.example.loginex2.Dto.ResponseDto;
 import com.example.loginex2.Dto.SignUpDto;
 import com.example.loginex2.Entity.Member;
@@ -44,6 +46,39 @@ public class AuthService {
         }
 
         return ResponseDto.setSuccess("회원 생성에 성공했습니다.");
+    }
+
+    public ResponseDto<LoginResponseDto> login(LoginDto dto) {
+        String email = dto.getEmail();
+        String password = dto.getPassword();
+
+        try {
+            // 사용자 id/password 일치하는지 확인
+            boolean existed = memberRepository.existsByEmailAndPassword(email, password);
+            if(!existed) {
+                return ResponseDto.setFailed("입력하신 로그인 정보가 존재하지 않습니다.");
+            }
+        } catch (Exception e) {
+            return ResponseDto.setFailed("데이터베이스 연결에 실패하였습니다.");
+        }
+
+        Member member = null;
+
+        try {
+            // 값이 존재하는 경우 사용자 정보 불러옴 (기준 email)
+            member = memberRepository.findById(email).get();
+        } catch (Exception e) {
+            return ResponseDto.setFailed("데이터베이스 연결에 실패하였습니다.");
+        }
+
+        member.setPassword("");
+
+        String token = "";
+        int exprTime = 3600000;     // 1h
+
+        LoginResponseDto loginResponseDto = new LoginResponseDto(token, exprTime, member);
+
+        return ResponseDto.setSuccessData("로그인에 성공하였습니다.", loginResponseDto);
     }
 
 }

@@ -4,4 +4,5 @@ import com.example.loginex2.Entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MemberRepository extends JpaRepository<Member, String> {
+    public boolean existsByEmailAndPassword(String email, String password);
 }

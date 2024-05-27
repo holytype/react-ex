@@ -1,5 +1,6 @@
 package com.example.loginex2.Controller;
 
+import com.example.loginex2.Dto.LoginDto;
 import com.example.loginex2.Dto.ResponseDto;
 import com.example.loginex2.Dto.SignUpDto;
 import com.example.loginex2.Entity.Member;
@@ -28,8 +29,10 @@ public class AuthController {
         return result;
     }
 
-//    @PostMapping("/login")
-//    public ResponseDto<?> login(@RequestBody LoginDto requestBody) {
-//        return null;
-//    }
+    @PostMapping("/login")
+    public ResponseDto<?> login(@RequestBody LoginDto requestBody) {
+        ResponseDto<?> result = authService.login(requestBody);
+        return result;
+    }
+
 }
