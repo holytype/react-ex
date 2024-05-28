@@ -6,7 +6,6 @@ import com.example.loginex2.Dto.ResponseDto;
 import com.example.loginex2.Dto.SignUpDto;
 import com.example.loginex2.Entity.Member;
 import com.example.loginex2.Repository.MemberRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +13,8 @@ import org.springframework.stereotype.Service;
 public class AuthService {
     @Autowired
     MemberRepository memberRepository;
+    @Autowired
+    TokenProvider tokenProvider;
 
     public ResponseDto<?> signUp(SignUpDto dto){
         String email = dto.getEmail();
@@ -73,8 +74,8 @@ public class AuthService {
 
         member.setPassword("");
 
-        String token = "";
-        int exprTime = 3600000;     // 1h
+        int exprTime = 3600;     // 1h
+        String token = tokenProvider.createJwt(email, exprTime);
 
         LoginResponseDto loginResponseDto = new LoginResponseDto(token, exprTime, member);
 

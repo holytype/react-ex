@@ -13,6 +13,11 @@
     position: absolute;
 }
 
+.App {
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
 body {
     min-width: 100vw;
     min-height: 100vh;
