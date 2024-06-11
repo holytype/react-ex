@@ -1,4 +1,4 @@
-package com.kh.oauthjwt;
+package com.kh.oauthjwt.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
