@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>front</title>
+</head>
+<body>
+    <div class="result"></div>
+</body>
+<script>
+
+    // 순수 javascript encodeURI-> url encoding
+    // jQuery jax으로 하면 decoding 상태 url
+
+    // Json으로 데이터 전송 RequestParam --> POST
+    // data: JSON.stringify(obj)
+    // contentType: "application/json"
+
+    const obj = {
+            ServiceKey: "yXyo9lOvKAavSyyfPeVgMsYnotyEBmwZIrv179rAOp4rvYaqXH+/yxqvb0t7gfq6091IoseP/wZk30HnbGyCuw==",
+            returnType: "json",
+            numOfRow: "10",
+            pageNo: "1"
+        };
+    $.ajax({
+        url: "http://apis.data.go.kr/B551182/hospInfoServicev2/getHospBasisList",
+        type: "GET",
+        data: obj,
+        dataType: "json",
+        success: function(result){
+            console.log(result);
+            const items = result.response.body.items.item;
+            console.log(items);
+            $(".result").text(items);
+        },
+        error: function(err){
+            console.log(err);
+        }
+    })
+</script>
+</html>
