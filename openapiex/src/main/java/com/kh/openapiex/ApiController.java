@@ -22,7 +22,6 @@ public class ApiController {
         String result =apiService.getHospitalIfo();
         model.addAttribute("result",result);
         return "back";
-
     }
 
     @ExceptionHandler(IOException.class)
